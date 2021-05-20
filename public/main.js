@@ -20,7 +20,10 @@ function plusButtonClickTeam1(event) {
 
   if (Number(team1Score.textContent) === 21) {
     window.alert(`You, ${team1Name.textContent}, won!`)
+    const header = document.querySelector('.team1 h2')
+    header.textContent = `Winner: ${team1Name.textContent}`
   }
+
   console.log(event.target.value)
   console.log(event)
 }
@@ -43,8 +46,9 @@ function plusButtonClickTeam2(event) {
   team2Score.textContent = current
   if (Number(team2Score.textContent) === 21) {
     window.alert(`You, ${team2Name.textContent}, won!`)
+    const header = document.querySelector('.team2 h2')
+    header.textContent = `Winner: ${team2Name.textContent}`
   }
-
   console.log(event.target.value)
   console.log(event)
 }
@@ -118,11 +122,14 @@ function updateTeam2Name(event) {
 }
 
 function clickToResetScoreboard(event) {
+  const team2Name = document.querySelector('.team2 h2')
+  const team1Name = document.querySelector('.team1 h2')
   const team1Score = document.querySelector('.team1 .score')
   const team2Score = document.querySelector('.team2 .score')
   team1Score.textContent = 0
   team2Score.textContent = 0
-  console.log(event.target.value)
+  team2Name.textContent = 'Team 2'
+  team1Name.textContent = 'Team 1'
   console.log(event)
 }
 
@@ -151,10 +158,3 @@ function main() {
 }
 
 document.addEventListener('DOMContentLoaded', main)
-
-// Assign an event to the input fields
-// to automatically change the team's name as the user types.
-
-// Assign click events to the buttons to update the corresponding
-// values on the page. The score buttons should adjust the current
-// score by a "hard-coded" value.

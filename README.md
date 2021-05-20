@@ -49,6 +49,8 @@ Add a reset button that resets the scoreboard back to each team having 0 points.
 
 Add more CSS to the winning teams score to indicate who won.
 
+<!-- done -->
+
 Implement a Quarter/Period Tracker that would be appropriate for the sport.
 
 Add some styling to make it more presentable. Have fun with it.
