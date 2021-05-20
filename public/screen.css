@@ -88,3 +88,12 @@ fieldset i.reset {
   color: #f64545;
   font-size: 1.25rem;
 }
+
+footer {
+  display: flex;
+  justify-content: center;
+}
+footer button {
+  font-size: 3rem;
+  text-transform: uppercase;
+}

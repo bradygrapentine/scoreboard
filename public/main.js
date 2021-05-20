@@ -1,160 +1,94 @@
-let adjustScore = 1
+let teamOneName = 'Team 1'
+let teamOneScore = 0
+let teamTwoName = 'Team 2'
+let teamTwoScore = 0
 
-function plusButtonClickTeam1(event) {
-  const team1Score = document.querySelector('.team1 .score')
-  const team2Score = document.querySelector('.team2 .score')
-  const team1Name = document.querySelector('.team1 h2')
-  const team2Name = document.querySelector('.team2 h2')
-
-  if (Number(team2Score.textContent) >= 21) {
-    window.alert(`Game Over. ${team2Name.textContent} won. You lost`)
-    return
-  }
-  if (Number(team1Score.textContent) >= 21) {
-    window.alert(`Game Over. You, ${team1Name.textContent}, won.`)
-    return
-  }
-
-  const current = Number(Number(team1Score.textContent) + adjustScore)
-  team1Score.textContent = current
-
-  if (Number(team1Score.textContent) === 21) {
-    window.alert(`You, ${team1Name.textContent}, won!`)
-    const header = document.querySelector('.team1 h2')
-    header.textContent = `Winner: ${team1Name.textContent}`
-  }
-
-  console.log(event.target.value)
-  console.log(event)
-}
-function plusButtonClickTeam2(event) {
-  const team2Score = document.querySelector('.team2 .score')
-  const team1Score = document.querySelector('.team1 .score')
-  const team2Name = document.querySelector('.team2 h2')
-  const team1Name = document.querySelector('.team1 h2')
-
-  if (Number(team1Score.textContent) >= 21) {
-    window.alert(`Game Over. ${team1Name.textContent} won. You lost`)
-    return
-  }
-  if (Number(team2Score.textContent) >= 21) {
-    window.alert(`Game Over. You, ${team2Name.textContent}, won.`)
-    return
-  }
-
-  const current = Number(Number(team2Score.textContent) + adjustScore)
-  team2Score.textContent = current
-  if (Number(team2Score.textContent) === 21) {
-    window.alert(`You, ${team2Name.textContent}, won!`)
-    const header = document.querySelector('.team2 h2')
-    header.textContent = `Winner: ${team2Name.textContent}`
-  }
-  console.log(event.target.value)
-  console.log(event)
-}
-function minusButtonClickTeam1(event) {
-  const team1Score = document.querySelector('.team1 .score')
-  const team2Score = document.querySelector('.team2 .score')
-  const team2Name = document.querySelector('.team2 h2')
-  const team1Name = document.querySelector('.team1 h2')
-
-  if (Number(team2Score.textContent) >= 21) {
-    window.alert(`Game Over. ${team2Name.textContent} won. You lost`)
-    return
-  }
-  if (Number(team1Score.textContent) >= 21) {
-    window.alert(`Game Over. You, ${team1Name.textContent}, won.`)
-    return
-  }
-
-  if (Number(team1Score.textContent) <= 0) {
-    window.alert('Invalid request')
-    return
-  }
-  const current = Number(Number(team1Score.textContent) - adjustScore)
-  team1Score.textContent = current
-
-  console.log(event.target.value)
-  console.log(event)
-}
-function minusButtonClickTeam2(event) {
-  const team2Score = document.querySelector('.team2 .score')
-  const team1Score = document.querySelector('.team1 .score')
-  const team2Name = document.querySelector('.team2 h2')
-  const team1Name = document.querySelector('.team1 h2')
-
-  if (Number(team1Score.textContent) >= 21) {
-    window.alert(`Game Over. ${team1Name.textContent} won. You lost`)
-    return
-  }
-  if (Number(team2Score.textContent) >= 21) {
-    window.alert(`Game Over. You, ${team2Name.textContent}, won.`)
-    return
-  }
-  if (Number(team2Score.textContent) <= 0) {
-    window.alert('Invalid request')
-    return
-  }
-  const current = Number(Number(team2Score.textContent) - adjustScore)
-  team2Score.textContent = current
-
-  console.log(event.target.value)
-  console.log(event)
-}
-function updateTeam1Name(event) {
-  const teamName = document.querySelector('.team1 h2')
-  teamName.textContent = event.target.value
-  if (teamName.textContent === '') {
-    teamName.textContent = 'Team 1'
-  }
-  console.log(event.target.value)
-  console.log(event)
+function renderTeam(team) {
+  const html = `
+  <section class="team${team.id}">
+  <h2>${team.name}</h2>
+  <h3>${team.score}</h3>
+  <fieldset>
+  <input type="text" placeholder="Name" value="${team.name}" />
+  </fieldset>
+  <fieldset>
+  <i class="add fas fa-2x fa-plus-circle"></i>
+  <i class="subtract fas fa-2x fa-minus-circle"></i>
+  </fieldset>
+ </section>
+  `
+  return html
 }
 
-function updateTeam2Name(event) {
-  const teamName = document.querySelector('.team2 h2')
-  teamName.textContent = event.target.value
-  if (teamName.textContent === '') {
-    teamName.textContent = 'Team 2'
-  }
-  console.log(event.target.value)
-  console.log(event)
+function setupListeners(team) {
+  document
+    .querySelector(`.team${team.id} .add`)
+    .addEventListener('click', function (event) {
+      team.score++
+      render()
+    })
+  document
+    .querySelector(`.team${team.id} .subtract`)
+    .addEventListener('click', function (event) {
+      team.score--
+      render()
+    })
+  document
+    .querySelector(`.team${team.id} input`)
+    .addEventListener('input', function (event) {
+      team.name = event.target.value
+      render()
+    })
 }
+let teams = [
+  {
+    id: 1,
+    name: 'Team 1',
+    score: 0,
+  },
+  {
+    id: 2,
+    name: 'Team 2',
+    score: 0,
+  },
+  {
+    id: 3,
+    name: 'Team 3',
+    score: 10,
+  },
+]
 
-function clickToResetScoreboard(event) {
-  const team2Name = document.querySelector('.team2 h2')
-  const team1Name = document.querySelector('.team1 h2')
-  const team1Score = document.querySelector('.team1 .score')
-  const team2Score = document.querySelector('.team2 .score')
-  team1Score.textContent = 0
-  team2Score.textContent = 0
-  team2Name.textContent = 'Team 2'
-  team1Name.textContent = 'Team 1'
-  console.log(event)
+function render() {
+  const html = `
+<header>
+ <h1>My Score Board</h1>
+</header>
+<main>
+${teams
+  .map(function (team) {
+    return renderTeam(team)
+  })
+  .join('')}
+</main> 
+<footer>
+ <button>reset</button>
+</footer>`
+  document.body.innerHTML = html
+  teams.forEach(function (team) {
+    setupListeners(team)
+  })
+  document.querySelector('button').addEventListener('click', function (event) {
+    // Reset the teams
+    render()
+    teams = [
+      { id: 1, name: 'Team 1', score: 0 },
+      { id: 2, name: 'Team 2', score: 0 },
+      { id: 3, name: 'Team 3', score: 0 },
+    ]
+  })
 }
 
 function main() {
-  document
-    .querySelector('.team1 input')
-    .addEventListener('input', updateTeam1Name)
-  document
-    .querySelector('.team2 input')
-    .addEventListener('input', updateTeam2Name)
-  document
-    .querySelector('.team1 i.add')
-    .addEventListener('click', plusButtonClickTeam1)
-  document
-    .querySelector('.team1 i.subtract')
-    .addEventListener('click', minusButtonClickTeam1)
-  document
-    .querySelector('.team2 i.add')
-    .addEventListener('click', plusButtonClickTeam2)
-  document
-    .querySelector('.team2 i.subtract')
-    .addEventListener('click', minusButtonClickTeam2)
-  document
-    .querySelector('fieldset i.reset')
-    .addEventListener('click', clickToResetScoreboard)
+  render()
 }
-
 document.addEventListener('DOMContentLoaded', main)
