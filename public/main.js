@@ -1,7 +1,20 @@
-let teamOneName = 'Team 1'
-let teamOneScore = 0
-let teamTwoName = 'Team 2'
-let teamTwoScore = 0
+let teams = [
+  {
+    id: 1,
+    name: 'Team 1',
+    score: 0,
+  },
+  {
+    id: 2,
+    name: 'Team 2',
+    score: 0,
+  },
+  {
+    id: 3,
+    name: 'Team 3',
+    score: 0,
+  },
+]
 
 function renderTeam(team) {
   const html = `
@@ -40,23 +53,6 @@ function setupListeners(team) {
       render()
     })
 }
-let teams = [
-  {
-    id: 1,
-    name: 'Team 1',
-    score: 0,
-  },
-  {
-    id: 2,
-    name: 'Team 2',
-    score: 0,
-  },
-  {
-    id: 3,
-    name: 'Team 3',
-    score: 10,
-  },
-]
 
 function render() {
   const html = `
